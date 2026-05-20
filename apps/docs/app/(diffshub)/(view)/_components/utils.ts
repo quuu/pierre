@@ -93,7 +93,7 @@ export function getPatchViewerHref(input: string): string | undefined {
     const githubPath = getGitHubPathFromURL(parsedURL);
     if (githubPath != null) return githubPath;
     if (parsedURL.pathname !== '/') {
-      return `${parsedURL.pathname}?domain=${encodeURIComponent(parsedURL.hostname)}`;
+      return parsedURL.pathname;
     }
     return undefined;
   } catch {
@@ -111,7 +111,7 @@ export function getPatchViewerHref(input: string): string | undefined {
       const githubPath = getGitHubPathFromURL(parsedURL);
       if (githubPath != null) return githubPath;
       if (parsedURL.pathname !== '/') {
-        return `${parsedURL.pathname}?domain=${encodeURIComponent(parsedURL.hostname)}`;
+        return parsedURL.pathname;
       }
     } catch {
       // Not parseable even with https:// prefix.
@@ -162,8 +162,7 @@ export function resolveDiffshubViewerRoute(
     domain == null ? normalizeGitHubPath(joinedPath) : joinedPath;
 
   if (upstreamPath !== joinedPath) {
-    const query = domain == null ? '' : `?domain=${encodeURIComponent(domain)}`;
-    return { kind: 'redirect', target: `${upstreamPath}${query}` };
+    return { kind: 'redirect', target: upstreamPath };
   }
 
   const host = domain ?? GITHUB_HOST;

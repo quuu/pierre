@@ -126,7 +126,7 @@ describe('resolveDiffshubViewerRoute', () => {
   });
 
   describe('alternate domain', () => {
-    test('renders against the requested host without rewriting', () => {
+    test('renders against the requested host without rewriting when supplied directly', () => {
       expect(
         resolveDiffshubViewerRoute(
           ['owner', 'repo', 'pull', '123', 'changes'],
